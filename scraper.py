@@ -15,6 +15,8 @@ rows=problems.find_all(['tr'])
 a=int(input())
 b=int(input())
 
+lst=[]
+
 for i in rows:
     id=i.find_all('a')
     
@@ -32,10 +34,11 @@ for i in rows:
         continue
 
     if(diff>=a and diff<=b):
-        print(code)
-        print(name)
-        print(diff)
-        print(link)
+        lst.append(code)
+        lst.append(name)
+        lst.append(diff)
+        lst.append(link)
+print(len(lst))
 
    
 
