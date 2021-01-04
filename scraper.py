@@ -37,5 +37,4 @@ def process(link,a,b):
         else:
             continue
         lst.append(lst2)
-    print(len(lst))
-    return lst2;
+    return lst;
