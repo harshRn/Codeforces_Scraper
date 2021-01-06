@@ -10,7 +10,8 @@ Results Page
 <script>
     function newDoc(lnk)
     {
-        window.location.assign(lnk)
+        s="https://"+lnk
+        window.location.assign(s)
     }
 </script>
 <h1>Results</h1>
@@ -25,7 +26,8 @@ Results Page
                 <td>{{ problem.code }}</td>
                 <td>{{ problem.name }}</td>
                 <td>{{ problem.rating }}</td>
-                <td><a href="{{ '%s'%problem.link|urlencode }}">{{ problem.link }}</a></td>
+                <td><a href="{{ '%s'%problem.link|urlencode }}" >{{ problem.link }}</a></td>
+                <td><input type="button" value="visit" onclick="newDoc('{{ problem.link }}')"></td>
             </tr>
         {% endfor %}
     </tr>

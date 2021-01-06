@@ -41,19 +41,12 @@ def process(link,a,b):
         lst.append(prob)
     return lst
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY']='koNNor_K'
 
 
 
-link='https://codeforces.com/problemset'
-a=1500
-b=2100
-all_posts=process(link,a,b)
-
-@app.route('/',methods=['GET'])
-def index():
-    return redirect('https://wwww.google.co.uk', 302)
 
 @app.route("/query",methods=["GET","POST"])
 def inp():
@@ -70,18 +63,9 @@ def inp():
 
 
 @app.route("/results",methods=['GET'])
-def res():
-    if request.method == 'POST':
-        return redirect(url_for('visit'))
-    else:
+def res():    
         return render_template("results.html",results=session['content'])
-    
-    
-    
-@app.route("/<string:lnk>",methods=['GET'])
-def visit(lnk): 
-    print(lnk, file=sys.stderr)
-    return redirect(lnk)
+
 
 if __name__=="__main__":
     app.run(debug=True)
