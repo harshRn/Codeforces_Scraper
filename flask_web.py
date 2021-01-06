@@ -1,4 +1,4 @@
-from flask import Flask,render_template,url_for,request,redirect
+from flask import Flask,render_template,url_for,request,redirect,session
 from bs4 import BeautifulSoup
 import requests
 
@@ -40,10 +40,14 @@ def process(link,a,b):
     return lst
 
 app = Flask(__name__)
+app.config['SECRET_KEY']='koNNor_K'
 
 
 
-
+link='https://codeforces.com/problemset'
+a=1500
+b=2100
+all_posts=process(link,a,b)
 
 
 @app.route("/query",methods=["GET","POST"])
@@ -53,18 +57,24 @@ def inp():
         a=int(request.form["ll"])
         b=int(request.form["ul"])
         all_posts=process(link,a,b)
+        session['content']=all_posts
         return redirect(url_for("res"))
     else:
         return render_template('query.html')
 
-link='https://codeforces.com/problemset'
-a=1500
-b=2100
-all_posts=process(link,a,b)
+
 
 @app.route("/results",methods=['GET'])
 def res():
-    return render_template('results.html',results=all_posts)
+    if 'content' in session:
+        return render_template("results.html",results=session['content'])
+    else:
+        return render_template("nores.html")
+
+
+# @app.route("/results/<all_posts>",methods=['GET'])
+# def res(all_posts):
+#     return render_template('results.html',results=all_posts)
 
 
 
