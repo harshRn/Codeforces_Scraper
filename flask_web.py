@@ -1,6 +1,8 @@
 from flask import Flask,render_template,url_for,request,redirect,session
 from bs4 import BeautifulSoup
 import requests
+import urllib
+import sys
 
 
 def process(link,a,b):
@@ -49,6 +51,9 @@ a=1500
 b=2100
 all_posts=process(link,a,b)
 
+@app.route('/',methods=['GET'])
+def index():
+    return redirect('https://wwww.google.co.uk', 302)
 
 @app.route("/query",methods=["GET","POST"])
 def inp():
@@ -66,17 +71,17 @@ def inp():
 
 @app.route("/results",methods=['GET'])
 def res():
-    if 'content' in session:
-        return render_template("results.html",results=session['content'])
+    if request.method == 'POST':
+        return redirect(url_for('visit'))
     else:
-        return render_template("nores.html")
-
-
-# @app.route("/results/<all_posts>",methods=['GET'])
-# def res(all_posts):
-#     return render_template('results.html',results=all_posts)
-
-
+        return render_template("results.html",results=session['content'])
+    
+    
+    
+@app.route("/<string:lnk>",methods=['GET'])
+def visit(lnk): 
+    print(lnk, file=sys.stderr)
+    return redirect(lnk)
 
 if __name__=="__main__":
     app.run(debug=True)

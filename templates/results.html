@@ -25,7 +25,7 @@ Results Page
                 <td>{{ problem.code }}</td>
                 <td>{{ problem.name }}</td>
                 <td>{{ problem.rating }}</td>
-                <td><a href="{{ '%s'%problem.link|urlencode }}" onClick="newDoc({{ '%s'%problem.link }})">{{ problem.link }}</a></td>
+                <td><a href="{{ '%s'%problem.link|urlencode }}">{{ problem.link }}</a></td>
             </tr>
         {% endfor %}
     </tr>
